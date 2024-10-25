@@ -1,0 +1,61 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  // NOTE: Update this to include the paths to all of your component files.
+  content: [
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
+  ],
+  presets: [require("nativewind/preset")],
+  theme: {
+    extend: {
+      "colors": {
+        "Base/Light/Light20": "#91919f",
+        "Base/Light/Light40": "#e3e5e5",
+        "Base/Light/Light60": "#f1f1fa",
+        "Base/Light/Light80": "#fcfcfc",
+        "Base/Light/Light100": "#ffffff",
+        "Base/Dark/Dark100": "#0d0e0f",
+        "Base/Dark/Dark75": "#161719",
+        "Base/Dark/Dark50": "#212325",
+        "Base/Dark/Dark25": "#292b2d",
+        "Violet/Violet100": "#7f3dff",
+        "Violet/Violet80": "#8f57ff",
+        "Violet/Violet60": "#b18aff",
+        "Violet/Violet40": "#d3bdff",
+        "Violet/Violet20": "#eee5ff",
+        "Blue/Blue100": "#0077ff",
+        "Blue/Blue80": "#248aff",
+        "Blue/Blue60": "#57a5ff",
+        "Blue/Blue40": "#8ac0ff",
+        "Blue/Blue20": "#bddcff",
+        "Red/Red100": "#fd3c4a",
+        "Red/Red80": "#fd5662",
+        "Red/Red60": "#fd6f7a",
+        "Red/Red40": "#fda2a9",
+        "Red/Red20": "#fdd5d7",
+        "Green/Green100": "#00a86b",
+        "Green/Green80": "#2ab784",
+        "Green/Green60": "#65d1aa",
+        "Green/Green40": "#93eaca",
+        "Green/Green20": "#cffaea",
+        "Yellow/Yellow100": "#fcac12",
+        "Yellow/Yellow80": "#fcbb3c",
+        "Yellow/Yellow60": "#fccc6f",
+        "Yellow/Yellow40": "#fcdda1",
+        "Yellow/Yellow20": "#fceed4"
+      },
+      fontFamily: {
+        athin: ["Archivo-Thin", "sans-serif"],
+        aextralight: ["Archivo-ExtraLight", "sans-serif"],
+        alight: ["Archivo-Light", "sans-serif"],
+        aregular: ["Archivo-Regular", "sans-serif"],
+        amedium: ["Archivo-Medium", "sans-serif"],
+        asemibold: ["Archivo-SemiBold", "sans-serif"],
+        abold: ["Archivo-Bold", "sans-serif"],
+        aextrabold: ["Archivo-ExtraBold", "sans-serif"],
+        ablack: ["Archivo-Black", "sans-serif"],
+      }
+    },
+  },
+  plugins: [],
+}

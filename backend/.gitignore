@@ -1,0 +1,44 @@
+# Symfony
+/var/
+/vendor/
+/.env.local
+/.env.test.local
+/.phpunit.result.cache
+/phpunit.xml
+
+# Composer
+/composer.phar
+
+# NPM / Yarn
+/node_modules/
+/yarn-error.log
+npm-debug.log*
+
+# Build files
+/public/build/
+/public/uploads/
+/assets/
+
+# IDE files
+/.idea/
+/.vscode/
+*.iml
+*.idea
+
+# Miscellaneous
+/.DS_Store
+/.env.local.php
+/.env.local.php.dist
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+###< symfony/phpunit-bridge ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
+
+/migrations
