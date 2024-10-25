@@ -9,46 +9,52 @@ export const UserProvider = ({ children }) => {
     const [stats, setStats] = useState(null);
     const loginToken = localStorage.getItem('jwtToken');
 
-    // UserContext.js
-    useEffect(() => {
-        const fetchUserData = async () => {
-            if (loginToken) {
-                try {
-                    const response = await axios.post('http://localhost:8000/api/user/status', null, {
-                        headers: {
-                            'Accept': '*/*',
-                            'Authorization': `Bearer ${loginToken}`,
-                        },
+    const fetchUserData = async () => {
+        if (loginToken) {
+            try {
+                const response = await axios.get('http://localhost:8000/api/user', {
+                    headers: {
+                        'Accept': '*/*',
+                        'Authorization': `Bearer ${loginToken}`,
+                    },
+                });
+
+                const data = await response.data;
+                console.log("Fetched data:", data); // Log the fetched data
+
+                if (response.status == 200) {
+                    setUserData({
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        email: data.email,
+                        expenses: data.expenses,
                     });
-
-                    const data = await response.data;
-                    console.log("Fetched data:", data); // Log the fetched data
-
-                    if (response.status === 200) {
-                        setUserData({
-                            firstName: data.user_status.firstName,
-                            lastName: data.user_status.lastName,
-                            email: data.user_status.email,
-                            roles: data.user_status.roles,
-                        });
-                        setStats(data.stats);
-                    }
-                } catch (error) {
-                    console.log('Error fetching user data:', error);
-                } finally {
-                    console.log("userData:", userData); // Check state after setting it
-                    setLoading(false);
+                    setStats(data.stats);
                 }
-            } else {
+            } catch (error) {
+                console.log('Error fetching user data:', error);
+            } finally {
+                console.log("userData:", userData); // Check state after setting it
                 setLoading(false);
             }
-        };
+        } else {
+            setLoading(false);
+        }
+    };
+
+    // UserContext.js
+    useEffect(() => {
         fetchUserData();
     }, [loginToken]);
 
+    // Refresh function to call after adding expense
+    const refreshUserData = async () => {
+        await fetchUserData();
+    };
+
 
     return (
-        <UserContext.Provider value={{ userData, stats, loading }}>
+        <UserContext.Provider value={{ userData, stats, loading, refreshUserData }}>
             {children}
         </UserContext.Provider>
     );

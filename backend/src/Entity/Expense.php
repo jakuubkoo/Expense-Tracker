@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ExpenseRepository::class)]
@@ -19,21 +20,21 @@ class Expense
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255), Groups(['user:read'])]
     #[Assert\NotBlank]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2), Groups(['user:read'])]
     #[Assert\NotBlank]
     #[Assert\Positive]
     private ?string $amount = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE), Groups(['user:read'])]
     #[Assert\NotBlank]
     #[Assert\Date]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true), Groups(['user:read'])]
     private ?string $description = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
@@ -46,7 +47,7 @@ class Expense
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'expenses')]
+    #[ORM\ManyToOne(inversedBy: 'expenses'), Groups(['user:read'])]
     private ?Category $category = null;
 
     public function getId(): ?int
