@@ -19,10 +19,10 @@ const Navbar = ({ login, userData }) => {
                     {!login && (
                         <>
                             <div className="hidden md:flex space-x-4 items-center">
-                                <a href="#" className="hover:text-gray-400">Home</a>
-                                <a href="#" className="hover:text-gray-400">About</a>
-                                <a href="#" className="hover:text-gray-400">Services</a>
-                                <a href="#" className="hover:text-gray-400">Contact</a>
+                                <a href="#" className="hover:text-gray-400">Dashboard</a>
+                                <a href="#" className="hover:text-gray-400">Settings</a>
+                                <a href="#" className="hover:text-gray-400">Transactions</a>
+                                <a href="#" className="hover:text-gray-400">My Subscriptions</a>
                             </div>
                             <div className="hidden md:flex items-center">
                                 <p className="hover:text-gray-400">Hello, {userData.firstName}</p>

@@ -34,13 +34,14 @@ export const UserProvider = ({ children }) => {
             } catch (error) {
                 console.log('Error fetching user data:', error);
             } finally {
-                console.log("userData:", userData); // Check state after setting it
                 setLoading(false);
             }
         } else {
             setLoading(false);
         }
     };
+
+    console.log("userData:", userData); // Check state after setting it
 
     // UserContext.js
     useEffect(() => {

@@ -9,7 +9,7 @@ const PageLayout = ({ login = false, children }) => {
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div className='bg-gray-200 h-screen'>
+        <div className='bg-[#1E1E1E] h-screen'>
             <Navbar login={login} userData={userData} />
 
             {children}
