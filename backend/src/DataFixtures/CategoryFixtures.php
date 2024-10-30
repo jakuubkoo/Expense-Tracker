@@ -29,15 +29,22 @@ class CategoryFixtures extends Fixture
         // init db transaction
         $this->connection->beginTransaction();
 
-        // create a user
+        // create a category
         $category = new Category();
         $category->setName('Food');
         $category->setDescription('Food category for test');
 
         $this->addReference('category-food', $category);
 
+        $category2 = new Category();
+        $category2->setName('Entertainment');
+        $category2->setDescription('Entertainment category for test');
+
+        $this->addReference('category-sub', $category2);
+
         // save test expense
         $manager->persist($category);
+        $manager->persist($category2);
         $manager->flush();
 
         // commit and re-start new transaction

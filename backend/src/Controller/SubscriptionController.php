@@ -117,15 +117,4 @@ class SubscriptionController extends AbstractController
         return $this->subscriptionManager->deleteSubscription($request);
     }
 
-    /**
-     * Filter subscriptions by category ID.
-     *
-     * @param int $id
-     * @return JsonResponse
-     */
-    #[Route('/filterByCategory/{id}', name: 'filter_subscription_by_category', methods: ['POST'])]
-    public function filterSubscriptionsByCategory(int $id): JsonResponse
-    {
-        return $this->subscriptionManager->filterSubscriptions($id);
-    }
 }
