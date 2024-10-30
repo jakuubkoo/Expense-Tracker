@@ -36,9 +36,16 @@ class Category
     #[ORM\OneToMany(targetEntity: Expense::class, mappedBy: 'category')]
     private Collection $expenses;
 
+    /**
+     * @var Collection<int, Subscription>
+     */
+    #[ORM\OneToMany(targetEntity: Subscription::class, mappedBy: 'category')]
+    private Collection $subscriptions;
+
     public function __construct()
     {
         $this->expenses = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,6 +144,36 @@ class Category
             'name' => $this->getName(),
             'description' => $this->getDescription(),
         ];
+    }
+
+    /**
+     * @return Collection<int, Subscription>
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(Subscription $subscription): static
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions->add($subscription);
+            $subscription->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Subscription $subscription): static
+    {
+        if ($this->subscriptions->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getCategory() === $this) {
+                $subscription->setCategory(null);
+            }
+        }
+
+        return $this;
     }
 
 }
