@@ -101,7 +101,7 @@ class TokenManager
     public function getTokenFromRequest(Request $request): ?string
     {
         try {
-            return $request->headers->get('Authorization') ? str_replace('Bearer ', '', $request->headers->get('Authorization')) : null;
+            return $request->headers->get('Authorization');
         } catch (Exception $e) {
             // TODO: Handle error
             return null;
