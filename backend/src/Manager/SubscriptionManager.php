@@ -159,7 +159,7 @@ class SubscriptionManager
         }
 
         if (isset($data['billingDate']) && trim($data['billingDate']) !== '' && $data['billingDate'] !== $subscription->getBillingDate()->format('Y-m-d')) {
-            $subscription->setBillingDate(new \DateTime($data['billingDate']));
+            $subscription->setBillingDate(new DateTime($data['billingDate']));
             $updated = true;
         }
 

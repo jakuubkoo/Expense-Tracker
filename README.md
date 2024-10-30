@@ -35,13 +35,13 @@ Expense Tracker is a web application designed to help users manage their persona
 
 ## Version 0.3
 - **Expense Statistics**
-  - [ ] Display total expenses over a selected period
-  - [ ] Display expenses by categories
-  - [ ] Basic graphical representation of expenses (e.g., pie chart)
+  - [x] Display total expenses over a selected period
+  - [x] Display expenses by categories
+  - [x] Basic graphical representation of expenses (e.g., pie chart)
 
 - **User Dashboard**
-  - [ ] Overview of recent expenses
-  - [ ] Summary of total expenses and category breakdown
+  - [x] Overview of recent expenses
+  - [x] Summary of total expenses and category breakdown
 
 ## Version 0.4
 - **Notifications**

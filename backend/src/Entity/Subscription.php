@@ -6,6 +6,7 @@ use App\Repository\SubscriptionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SubscriptionRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -16,32 +17,32 @@ class Subscription
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255), Groups(['user:read'])]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true), Groups(['user:read'])]
     private ?string $description = null;
 
-    #[ORM\Column]
+    #[ORM\Column, Groups(['user:read'])]
     private ?float $amount = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255), Groups(['user:read'])]
     private ?string $billingPeriod = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE), Groups(['user:read'])]
     private ?\DateTimeInterface $billingDate = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255), Groups(['user:read'])]
     private ?string $status = null;
 
-    #[ORM\Column]
+    #[ORM\Column, Groups(['user:read'])]
     private ?bool $autoRenew = false;
 
-    #[ORM\ManyToOne(inversedBy: 'subscriptions')]
+    #[ORM\ManyToOne(inversedBy: 'subscriptions'), Groups(['user:read'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'subscriptions')]
+    #[ORM\ManyToOne(inversedBy: 'subscriptions'), Groups(['user:read'])]
     private ?Category $category = null;
 
     #[ORM\Column]

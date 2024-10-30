@@ -1,16 +1,31 @@
 <?php
+
 namespace App\Tests\Controller;
 
-use App\Entity\Category;
 use App\Entity\Subscription;
 use App\Tests\CustomCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class SubscriptionControllerTest
+ *
+ * This class contains tests for the SubscriptionController, ensuring that
+ * the API endpoints for managing subscriptions behave as expected.
+ *
+ * The tests cover the following functionalities:
+ * - Adding a subscription
+ * - Validating input data for subscription addition
+ * - Retrieving subscriptions
+ * - Editing a subscription
+ * - Deleting a subscription
+ *
+ * The tests assume a user is authenticated using JWT and that the necessary
+ * fixtures are set up in the database.
+ */
 class SubscriptionControllerTest extends CustomCase
 {
-
     /**
      * @var EntityManagerInterface $entityManager
      */
@@ -21,6 +36,10 @@ class SubscriptionControllerTest extends CustomCase
      */
     private KernelBrowser $client;
 
+    /**
+     * Sets up the test environment before each test case.
+     * Initializes the client for making requests and retrieves the entity manager.
+     */
     protected function setUp(): void
     {
         $this->client = static::createClient();
@@ -28,9 +47,14 @@ class SubscriptionControllerTest extends CustomCase
         parent::setUp();
     }
 
+    /**
+     * Tests the successful addition of a subscription.
+     *
+     * Simulates user authentication and sends a POST request to add a subscription.
+     * Asserts that the response is successful and contains the expected message.
+     */
     public function testAddSubscriptionSuccess(): void
     {
-
         // simulate user authentication
         $this->simulateUserAuthentication($this->client);
 
@@ -50,6 +74,12 @@ class SubscriptionControllerTest extends CustomCase
         $this->assertStringContainsString('Subscription added successfully!', $this->client->getResponse()->getContent());
     }
 
+    /**
+     * Tests adding a subscription with missing required fields.
+     *
+     * Simulates user authentication and sends a POST request with a missing 'name' field.
+     * Asserts that the response indicates a validation error.
+     */
     public function testAddSubscriptionValidationError(): void
     {
         // simulate user authentication
@@ -76,6 +106,12 @@ class SubscriptionControllerTest extends CustomCase
 
     }
 
+    /**
+     * Tests adding a subscription with an empty 'name' field.
+     *
+     * Simulates user authentication and sends a POST request with an empty 'name' field.
+     * Asserts that the response indicates a validation error.
+     */
     public function testAddSubscriptionValidationError2(): void
     {
         // simulate user authentication
@@ -99,6 +135,12 @@ class SubscriptionControllerTest extends CustomCase
         $this->assertEquals('Name is required.', $responseContent['message']);
     }
 
+    /**
+     * Tests the successful retrieval of subscriptions.
+     *
+     * Simulates user authentication and sends a POST request to retrieve subscriptions.
+     * Asserts that the response is successful and contains the expected subscription data.
+     */
     public function testGetSubscriptionsSuccess(): void
     {
         // simulate user authentication
@@ -128,7 +170,13 @@ class SubscriptionControllerTest extends CustomCase
         $this->assertEquals('Entertainment', $subscription['category']);
     }
 
-
+    /**
+     * Tests the successful editing of a subscription.
+     *
+     * Retrieves a fixture subscription, simulates user authentication, and sends a POST request
+     * to edit the subscription. Asserts that the response is successful and the database reflects
+     * the changes.
+     */
     public function testEditSubscriptionSuccess(): void
     {
         // Get the fixture Subscription
@@ -166,7 +214,12 @@ class SubscriptionControllerTest extends CustomCase
         $this->assertEquals('active', $updatedSubscription->getStatus());
     }
 
-
+    /**
+     * Tests editing a non-existing subscription.
+     *
+     * Simulates user authentication and sends a POST request to edit a subscription
+     * that does not exist. Asserts that the response indicates that the subscription was not found.
+     */
     public function testEditSubscriptionNotFound(): void
     {
         // simulate user authentication
@@ -254,6 +307,13 @@ class SubscriptionControllerTest extends CustomCase
         $this->assertEquals('ID is required.', $responseContent['message']);
     }
 
+    /**
+     * Tests the successful deletion of a subscription.
+     *
+     * Retrieves a fixture subscription, simulates user authentication, and sends a DELETE request
+     * to remove the subscription. Asserts that the response is successful and the database no longer
+     * contains the subscription.
+     */
     public function testDeleteSubscriptionSuccess(): void
     {
         // Get the fixture Subscription
@@ -284,7 +344,12 @@ class SubscriptionControllerTest extends CustomCase
         $this->assertNull($deletedSubscription);
     }
 
-
+    /**
+     * Tests deleting a non-existing subscription.
+     *
+     * Simulates user authentication and sends a DELETE request for a subscription
+     * that does not exist. Asserts that the response indicates that the subscription was not found.
+     */
     public function testDeleteSubscriptionNotFound(): void
     {
         // simulate user authentication
