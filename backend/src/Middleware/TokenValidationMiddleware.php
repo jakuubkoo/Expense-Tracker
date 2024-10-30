@@ -44,16 +44,20 @@ class TokenValidationMiddleware
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-
         $request = $event->getRequest();
         $token = $this->tokenManager->getTokenFromRequest($request);
 
-        // Check if token is not blacklisted
         if (!empty($token)) {
-            if ($this->tokenManager->isTokenBlacklisted($token)) {
-                die('Invalid JWT token');
-                // TODO: Handle error
+            if (!$this->tokenManager->isTokenValid($token)) {
+                // Terminate the request with a 401 response for invalid or expired tokens
+                $response = new JsonResponse(['error' => 'Invalid or expired JWT token'], 401);
+                $event->setResponse($response);
             }
+        } else {
+            // Optional: handle requests without a token if they require authentication
+            $response = new JsonResponse(['error' => 'Token missing'], 401);
+            $event->setResponse($response);
         }
     }
+
 }
